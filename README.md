@@ -1,34 +1,57 @@
-# acmsg (automated commit message generator)
+# acmsg — AI Git Commit Message Generator
 
-A cli tool written in Python that generates git commit messages using AI models
-through the OpenRouter API.
+**acmsg** is a Python CLI that generates **git commit messages** automatically using AI models via the [OpenRouter](https://openrouter.ai) API. Stop writing commit messages by hand—let AI suggest clear, contextual messages from your staged changes.
 
-[![Create Release and Publish to PyPI](https://github.com/quinneden/acmsg/actions/workflows/publish-and-release.yaml/badge.svg)](https://github.com/quinneden/acmsg/actions/workflows/publish-and-release.yaml)
-[![Run Tests](https://github.com/quinneden/acmsg/actions/workflows/test.yaml/badge.svg?branch=main)](https://github.com/quinneden/acmsg/actions/workflows/test.yaml)
+[![Create Release and Publish to PyPI](https://github.com/KuchikiRenji/acmsg/actions/workflows/publish-and-release.yaml/badge.svg)](https://github.com/KuchikiRenji/acmsg/actions/workflows/publish-and-release.yaml)
+[![Run Tests](https://github.com/KuchikiRenji/acmsg/actions/workflows/test.yaml/badge.svg?branch=main)](https://github.com/KuchikiRenji/acmsg/actions/workflows/test.yaml)
+
+---
+
+## Table of contents
+
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [Author & contact](#author--contact)
+- [License](#license)
+
+---
 
 ## Features
 
-- Analyzes staged changes in your git repository
-- Generates contextual commit messages using AI
-- Supports multiple AI models via [OpenRouter](https://openrouter.ai)
-- Optionally edit generated commit message
-- Automatically commits changes with generated message, if confirmed
+- **Analyzes staged changes** in your git repository (diffs, file paths, context).
+- **Generates contextual commit messages** using AI (multiple models supported).
+- **Uses [OpenRouter](https://openrouter.ai)** so you can choose from many AI providers and models.
+- **Optional edit step** — review and edit the generated message in your editor before committing.
+- **One-command flow** — optionally commit with the generated message after confirmation.
+
+Ideal for developers who want **automated commit messages**, **conventional commits**, or **consistent commit message quality** without typing them manually.
+
+---
 
 ## Prerequisites
-- OpenRouter API Key
+
+- **OpenRouter API key** — get one at [OpenRouter](https://openrouter.ai) (required for AI generation).
+
+---
 
 ## Installation
 
-### with pipx:
+### With pipx (recommended)
+
 ```bash
 pipx install acmsg
 ```
 
-### with nix:
-using flakes (i.e. nixos/nix-darwin/home-manager):
+### With Nix
+
+**Using flakes** (e.g. NixOS, nix-darwin, Home Manager):
+
 ```bash
 # Add `acmsg` to your flake inputs
-inputs.acmsg.url = "github:quinneden/acmsg";
+inputs.acmsg.url = "github:KuchikiRenji/acmsg";
 
 # Add the nixpkgs overlay & include the package in your configuration
 nixpkgs.overlays = [ inputs.acmsg.overlays.default ];
@@ -38,25 +61,30 @@ environment.systemPackages = [ pkgs.acmsg ];
 # Or include the package directly from inputs
 environment.systemPackages = [ inputs.acmsg.packages.${pkgs.system}.acmsg ];
 ```
-using a standalone profile:
+
+**Standalone profile:**
+
 ```bash
-$ nix profile install "github:quinneden/acmsg"
+nix profile install "github:KuchikiRenji/acmsg"
 ```
+
+---
 
 ## Configuration
 
-The configuration file is located at `~/.config/acmsg/config.yaml`.
+Config file: `~/.config/acmsg/config.yaml`.
 
-On first run, acmsg will prompt you to configure your OpenRouter API token.
+On first run, **acmsg** will prompt you for your OpenRouter API token. You can also set it manually:
 
-You can also run the following command:
 ```bash
-$ acmsg config set api_token <your_api_token>
+acmsg config set api_token <your_api_token>
 ```
+
+---
 
 ## Usage
 
-```
+```text
 usage: acmsg [-h] [--version] {commit,config} ...
 
 Automated commit message generator
@@ -71,6 +99,22 @@ options:
   --version        display the program version and exit
 ```
 
+**Typical workflow:** stage your changes with `git add`, then run `acmsg commit` to generate (and optionally edit and apply) a commit message.
+
+---
+
+## Author & contact
+
+**KuchikiRenji**
+
+| Contact   | Value                    |
+|----------|---------------------------|
+| **Email** | KuchikiRenji@outlook.com |
+| **GitHub** | [github.com/KuchikiRenji](https://github.com/KuchikiRenji) |
+| **Discord** | `kuchiki_renji` |
+
+---
+
 ## License
 
-acmsg is licenced under the MIT License, as included in the [LICENSE](LICENSE) file.
+acmsg is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
